@@ -1,0 +1,141 @@
+---
+title: "BPQuant Example"
+author: "Lisa Bramer & Bobbie-Jo Webb-Robertson"
+date: "February 17, 2016"
+output: html_document
+---
+
+This file is intended to demonstrate using the ```bpquant()``` function in R.
+
+The function is written to take input from one protein at a time and requires two inputs:  
+1. ```protein_sig``` is a matrix or data.frame with $p$ rows and $n$ columns, where $p$ is the number of peptides mapped to the protein of interest and $n$ is the number of tests conducted to generate signatures made up of values 0, 1, and -1.  
+2. ```pi_not``` is a numeric value between 0 and 1 indicating the background probability/frequency of a zero signature.
+
+### Example Data
+
+The file "protein_signatures.csv" contains some example signature data for a few different proteins and will be used to demonstrate the use of the ```bpquant``` function.
+
+```{r}
+source("bpquant.R")
+protein_sig_data = read.csv("protein_signatures.csv")
+
+head(protein_sig_data)
+```
+
+### Using the Function
+
+After reading in the data, we can see that there are signatures for peptides associated with three different proteins. We will start by pulling the signatures for the first protein:
+
+```{r}
+# number of proteins in the data.frame #
+length(unique(protein_sig_data$Protein))
+
+cur_protein = subset(protein_sig_data, Protein == "A")
+
+# make sure to remove any character columns before inputting into bpquant #
+cur_protein_sigs = cur_protein[,-(1:2)]
+
+```
+
+Here's what our signature data looks like for all peptides mapping to the current protein of interest:
+
+```{r, echo = F}
+
+cur_protein_sigs
+
+```
+
+We then set our background frequency for a zero signature and call ```bpquant```
+
+```{r}
+pi_zero = 0.9
+
+results = bpquant(protein_sig = cur_protein_sigs, pi_not = pi_zero)
+
+```
+
+### Output
+```bpquant``` returns a list of five items:  
+1. num_proteoforms - the number of proteoforms as identified by bpquant    
+2. unique_sigs - matrix of unique signatures observed  
+3. proteoform_configs - matrix of 0/1 values indicating scenarios of proteoform absence/presence scenarios  
+4. post_prob - vector of posterior probabilities corresponding to each proteoform configuration in "proteoform_configs"  
+5. peptide_idx - vector of 0, 1, 2, . . . values indicating which proteoform each peptide belongs to  
+
+```{r}
+# bpquant identifies 1 proteoform #
+results$num_proteoforms
+
+# unique signatures observed #
+results$unique_sigs
+
+# possible proteoform configurations #
+results$proteoform_configs
+
+# posterior probability of each proteoform configuration #
+results$post_prob
+
+# 0/1 vector indicating which peptides follow the predominant signature #
+results$peptide_idx
+
+# here we would use the following peptides for protein quantitation #
+cur_protein[which(results$peptide_idx == 1),]
+```
+
+### Example -- Two Proteoforms 
+
+Move onto the second protein in the data
+
+```{r}
+
+cur_protein = subset(protein_sig_data, Protein == "B")
+
+# make sure to remove any character columns before inputting into bpquant #
+cur_protein_sigs = cur_protein[,-(1:2)]
+
+```
+
+Here's what our signature data looks like for all peptides mapping to the current protein of interest:
+
+```{r, echo = F}
+
+cur_protein_sigs
+
+```
+
+We then set our background frequency for a zero signature and call ```bpquant```
+
+```{r}
+pi_zero = 0.9
+
+results = bpquant(protein_sig = cur_protein_sigs, pi_not = pi_zero)
+
+```
+
+### Output
+
+```{r}
+# bpquant identifies 2 proteoform #
+results$num_proteoforms
+
+# unique signatures observed #
+results$unique_sigs
+
+# possible proteoform configurations #
+results$proteoform_configs
+
+# posterior probability of each proteoform configuration #
+results$post_prob
+
+# 0/1/2 vector indicating which peptides follow the which predominant signature #
+results$peptide_idx
+
+# proteoform 1 #
+cur_protein[which(results$peptide_idx == 1),]
+
+# proteoform 2 #
+cur_protein[which(results$peptide_idx == 2),]
+
+# peptides which don't follow either proteoform signature #
+cur_protein[which(results$peptide_idx == 0),]
+```
