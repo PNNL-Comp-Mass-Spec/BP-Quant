@@ -5,7 +5,7 @@ bpquant <- function(protein_sig, pi_not){
 if(pi_not > 1 | pi_not < 0) stop("The background frequency of the zero signature must be between 0 and 1")
 
 ## signatures can only contain values equal to -1, 1, or 0
-if( sum( !(protein_sig %in% c(1,-1,0))) > 0 ) stop("Entries in the signatures matrix may only take values of -1, 1, or 0")
+if(sum(apply(protein_sig, 1, function(x) sum(!(x %in% c(1,-1,0)))))> 0 ) stop("Entries in the signatures matrix may only take values of -1, 1, or 0")
 
 
 ############# generate parameters associated with signature counts and probabilities #############
@@ -134,6 +134,6 @@ if( sum( !(protein_sig %in% c(1,-1,0))) > 0 ) stop("Entries in the signatures ma
     }
   }
   
-return(list(post_prob = post_prob, peptide_idx = peptide_ids, num_proteoforms = num_proteoforms))
+return(list(post_prob = post_prob, peptide_idx = peptide_ids, unique_sigs = sigs, num_proteoforms = num_proteoforms, proteoform_configs = p_configs))
 
 }
