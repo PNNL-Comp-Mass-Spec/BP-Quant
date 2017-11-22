@@ -1,5 +1,3 @@
-# This repo has been moved to https://github.com/PNNL-Comp-Mass-Spec/BP-Quant. 
-
 BP-Quant
 ========
 
@@ -10,4 +8,18 @@ Here, we present the implementation of a Bayesian model (BP-Quant) that uses sta
 
 Example Code Scripts
 --------------------
-Example data and scripts for the R function, can be found in teh R Function folder.
+Example data and scripts for the R function, can be found in the R Functions folder.
+
+
+## Contacts
+
+Written by Lisa Bramer and Bobbie-Jo Webb-Robertson (PNNL, Richland, WA) \
+E-mail: 
+* [Bobbie-Jo](https://www.pnnl.gov/contacts/staffinfo.asp?uid=FF7D1B08D7B2E44FA6F02265AD63AB1B)
+* [Lisa](https://www.pnnl.gov/contacts/staffinfo.asp?uid=F51A431456484F43A317D3CF0E4FE11D)
+
+## License
+
+Licensed under the Apache License, Version 2.0; 
+you may not use this file except in compliance with the License.  You may obtain 
+a copy of the License at https://opensource.org/licenses/Apache-2.0
