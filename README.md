@@ -1,15 +1,18 @@
 BP-Quant
 ========
 
-Background
----------
+## Background
 
 Here, we present the implementation of a Bayesian model (BP-Quant) that uses statistically derived peptides signatures to identify peptides that are outside the dominant pattern, or the existence of multiple over-expressed patterns to improve relative protein abundance estimates. It is a research-driven approach that utilizes the objectives of the experiment, defined in the context of a standard statistical hypothesis, to identify a set of peptides exhibiting similar statistical behavior relating to a protein. This approach infers that changes in relative protein abundance can be used as a surrogate for changes in function, without necessarily taking into account the effect of differential post-translational modifications, processing, or splicing in altering protein function. BP-Quant is available as MatLab ® and R packages here. 
 
-Example Code Scripts
---------------------
+## Example Code Scripts
+
 Example data and scripts for the R function, can be found in the R Functions folder.
 
+## Publication
+
+See manuscript [Bayesian proteoform modeling improves protein quantification of global proteomic measurements.](https://www.ncbi.nlm.nih.gov/pubmed/25433089) 
+published in MCP 2014 Dec;13(12):3639-46 (http://dx.doi.org/10.1074/mcp.M113.030932)
 
 ## Contacts
 
